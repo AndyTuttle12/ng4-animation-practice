@@ -17,6 +17,25 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 			transition('normal <=> highlighted', animate(500)),
 			// transition('highlighted => normal', animate(500))
 		]),
+		trigger('list1', [
+			state('in', style({
+				opacity: 1,
+				transform: 'translateX(0)'
+			})),
+			transition('void  => *', [
+				style({
+					opacity: 0,
+					transform: 'translateX(-100px)'
+				}),
+				animate(300)
+			]),
+			transition('*  => void', [
+				animate(300, style({
+					transform: 'translateX(100px)',
+					opacity: 0
+				}))
+			])
+		]),
 		trigger('wildState', [
 			state('normal', style({
 				backgroundColor: 'red',
@@ -32,7 +51,15 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 			})),
 			transition('normal => highlighted', animate(300)),
 			transition('highlighted => normal', animate(700)),
-			transition('shrunken <=> *', animate(500))
+			transition('shrunken <=> *', [
+				style({
+					backgroundColor: 'orange'
+				}),
+				animate(1000, style({
+					borderRadius: '50px'
+				})),
+				animate(500)
+			])
 		])
 	]
 })
